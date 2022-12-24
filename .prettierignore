@@ -1,0 +1,14 @@
+# Ignore artifacts
+_next
+.next
+out
+build
+dist
+target
+coverage
+next-env.d.ts
+pnpm-lock.yaml
+applications/stackbee-next/public/
+applications/stackbee-gql/src/schema.graphql
+*.generated.ts
+
