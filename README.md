@@ -1,13 +1,13 @@
 # Hazel
 
-[![CircleCI](https://circleci.com/gh/vercel/hazel/tree/master.svg?style=svg)](https://circleci.com/gh/vercel/hazel/tree/master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-This project lets you deploy an update server for [Electron](https://www.electronjs.org) apps with ease: You only need to click a button.
+This project lets you deploy an update server for [Tauri](https://tauri.app/) apps with ease: You only need to click a button.
 
 The result will be faster and more lightweight than any other solution out there! :rocket:
 
-- Recommended by Electron [here](https://www.electronjs.org/docs/tutorial/updates#deploying-an-update-server)
+(- Recommended by Electron [here](https://www.electronjs.org/docs/tutorial/updates#deploying-an-update-server))
+
 - Built on top of [micro](https://github.com/zeit/micro), the tiniest HTTP framework for Node.js
 - Pulls the latest release data from [GitHub Releases](https://help.github.com/articles/creating-releases/) and caches it in memory
 - Refreshes the cache every **15 minutes** (custom interval [possible](#options))
@@ -23,13 +23,15 @@ Open this link in a new tab to deploy Hazel on [Vercel](https://vercel.com):
 
 Once it's deployed, paste the deployment address into your code (please keep in mind that updates should only occur in the production version of the app, not while developing):
 
-```js
-const { app, autoUpdater } = require('electron')
-
-const server = <your-deployment-url>
-const url = `${server}/update/${process.platform}/${app.getVersion()}`
-
-autoUpdater.setFeedURL({ url })
+```json
+"updater": {
+  "active": true,
+  "endpoints": [
+    "https://your-project-name.vercel.app/update/{{target}}/{{current_version}}"
+  ],
+  "dialog": true,
+  "pubkey": "your-pub-key"
+}
 ```
 
 That's it! :white_check_mark:
@@ -106,3 +108,9 @@ Huge thanks to my ([@leo](https://github.com/leo)'s) friend [Andy](http://twitte
 ## Author
 
 Leo Lamprecht ([@notquiteleo](https://twitter.com/notquiteleo)) - [Vercel](https://vercel.com)
+
+## Deploy to vercel
+
+```bash
+vercel -e ACCOUNT="github-account" -e REPOSITORY="repository-name"
+```
